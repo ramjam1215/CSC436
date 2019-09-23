@@ -47,7 +47,7 @@
 </style>
 
 <script>
-    var colors = ['red', 'blue', 'gold'];
+var colors = ['red', 'blue', 'gold'];
 
 var chicagoStartups = [
     '  Interior   Define  ',
@@ -68,8 +68,8 @@ var chicagoStartups = [
     'ParkWhiz'
 ];
 
-function clearDocument()
-{
+function clearDocument() {
+    //look for root container, if it exists loop through and clear it
     var rootDiv = document.getElementById('rootContainer');
     if (rootDiv) {
         while (rootDiv.hasChildNodes()) {
@@ -78,13 +78,24 @@ function clearDocument()
     }
 }
 
-function initDocument()
-{
+
+function initDocument() {
     clearDocument();
+
+
+	/*
+				  Root Container
+				/				\
+		Reverse Cont    	Comp Names Cont
+								/	|	\
+							   comp name divs
+									|
+								   text
+	*/
     var rootDiv = document.createElement('div');
     rootDiv.id = 'rootContainer';
 
-    var companyNamesContainer = document.createElement('div'); 
+    var companyNamesContainer = document.createElement('div');
     //added an id to the container for later access
     companyNamesContainer.id = 'namesContainer';
 
@@ -99,23 +110,20 @@ function initDocument()
             companyNamesContainer.appendChild(childDiv);
         }
     );
+    //also attach the tree of company containers to the main 'root' container, which is also added to the file
     rootDiv.appendChild(companyNamesContainer);
     document.body.appendChild(rootDiv);
 }
 
-function renderReversedElements()
-{
+function renderReversedElements() {
     var reverseContainer = document.getElementById('reverseContainer');
     var reversedChicagoStartups = [];
 
-    if (reverseContainer)
-    {
+    if (reverseContainer) {
 
-        if (reverseContainer.hasChildNodes())
-        {
+        if (reverseContainer.hasChildNodes()) {
 
-            while (reverseContainer.hasChildNodes())
-            {
+            while (reverseContainer.hasChildNodes()) {
 
                 reversedChicagoStartups.push(reverseContainer.lastChild.innerHTML);
                 reverseContainer.removeChild(reverseContainer.lastChild);
@@ -133,10 +141,12 @@ function renderReversedElements()
             );
         }
 
-        else
-        {
+        else {
+            var revArr = chicagoStartupsReverse();
             //TODO:: REPLACE [chicagoStartups.reverse()] WITH A FUNCTION CALLED "chicagoStartupsReverse"
-            chicagoStartups.reverse().forEach(function (startup) {
+            //chicagoStartups.reverse().forEach(function (startup) {
+            revArr.forEach(function (startup)
+            {
                 var childDiv = document.createElement('div');
                 var text = document.createTextNode(startup);
                 childDiv.appendChild(text);
@@ -146,9 +156,18 @@ function renderReversedElements()
     }
 }
 
-function chicagoStartupsReverse()
-{
+function chicagoStartupsReverse() {
     var reversedStartups = [];
+
+    //if you have the size of an array you cant start from the end of the array,
+    //and fill another array in the opposite direction
+    var n = chicagoStartups.length - 1;
+
+    while (n >= 0)
+    {
+        reversedStartups.push(chicagoStartups[n]);
+        n--;
+    }
     /*
         TODO: REVERSE THE CONTENTS OF THE ARRAY WITHOUT USING THE BUILT IN REVERSE METHOD
               RETURN THE REVERSED ARRAY
@@ -163,20 +182,26 @@ function chicagoStartupsReverse()
     return reversedStartups;
 }
 
-function cleanAndCountCharacters()
-{
+
+/*
+        TODO: REMOVES ANY SPECIAL CHARACTERS FROM EACH COMPANY NAME AND
+          DISPLAYS THE NUMBER OF REMAINING CHARACTERS NEXT TO THE FULL WORD.
+          DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
+*/
+
+function cleanAndCountCharacters() {
     console.log('CLEAN AND COUNT CHARACTERS');
+    //use trim() to remove whitespace
+    //use regex str.replace(/[^a-zA-Z]/g, '') or str.replace(\W, '')
+
     var namesContainer = document.getElementById('namesContainer');
     var tempStr = '';
     var num = 0;
-    if (namesContainer)
-    {
-        if (namesContainer.hasChildNodes())
-        {
+    if (namesContainer) {
+        if (namesContainer.hasChildNodes()) {
             var childNode = namesContainer.firstChild;
 
-            while (childNode != null)
-            {
+            while (childNode != null) {
                 tempStr = childNode.innerHTML;
 
                 tempStr = tempStr.replace(/[^a-zA-Z]/g, '');
@@ -190,20 +215,27 @@ function cleanAndCountCharacters()
             console.log("End of While Loop");
         }
     }
-    //use trim() to remove whitespace
-    //use regex str.replace(/[^a-zA-Z]/g, '') or str.replace(\W, '')
-    /*
-        TODO: REMOVES ANY SPECIAL CHARACTERS FROM EACH COMPANY NAME AND
-          DISPLAYS THE NUMBER OF REMAINING CHARACTERS NEXT TO THE FULL WORD.
-          DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
-    */
 
 }
 
-function initReverse()
-{
+function initReverse() {
+    //create an object that holds a button object, which calls the renderReversedElements object/func
+	/*
+				  Root Container
+				/				\
+		Reverse Cont    	Comp Names Cont
+			/
+	Rev button cont
+		/
+	Rev button
+		/
+	Text
+	
+	
+	*/
     var reverseContainer = document.createElement('div');
     reverseContainer.id = 'reverseContainer';
+
     var reverseBtn = document.createElement('button');
     var btnText = document.createTextNode('Reverse');
     reverseBtn.onclick = renderReversedElements;
@@ -214,8 +246,7 @@ function initReverse()
     document.getElementById('rootContainer').appendChild(reverseContainer);
 }
 
-function toggleDisplay()
-{
+function toggleDisplay() {
     /*
     TODO: REVIEW THE CODE IN THE PROVIDED REVERSE EXAMPLE, USE JAVASCRIPT TO ADD A CLICKABLE BUTTON
     CALLED "Toggle Display" ... WHEN THE USER CLICKS THE BUTTON, IT RENDERS THE DISPLAY OF THE COMPANY NAMES
@@ -232,8 +263,7 @@ function toggleDisplay()
     */
 }
 
-function run()
-{
+function run() {
     initDocument();
     initReverse();
 }
@@ -280,4 +310,5 @@ var directions = (function () {
     }
 
 });
+directions();
 </script>

@@ -68,8 +68,39 @@ var chicagoStartups = [
     'ParkWhiz'
 ];
 
-function clearDocument() {
+function clearDiv()
+{
+    //starts from the front
+    var namesContainer = document.getElementById('namesContainer');
+    if (namesContainer)
+    {
+        var childNode = namesContainer.firstChild;
+
+        while (childNode != null)
+        {
+            //just fill node with empty string
+            childNode.innerHTML = '';
+
+            //iterate
+            childNode = childNode.nextSibling;
+        }
+    }
+}
+
+
+function clearSpan()
+{
+    var inLineContainer = document.getElementById('inLineContainer');
+    if (inLineContainer)
+    {
+        inLineContainer.innerHTML = '';
+    }
+}
+
+function clearDocument()
+{
     //look for root container, if it exists loop through and clear it
+    //removes from the end
     var rootDiv = document.getElementById('rootContainer');
     if (rootDiv) {
         while (rootDiv.hasChildNodes()) {
@@ -79,9 +110,9 @@ function clearDocument() {
 }
 
 
-function initDocument() {
+function initDocument()
+{
     clearDocument();
-
 
 	/*
 				  Root Container
@@ -113,17 +144,43 @@ function initDocument() {
     //also attach the tree of company containers to the main 'root' container, which is also added to the file
     rootDiv.appendChild(companyNamesContainer);
     document.body.appendChild(rootDiv);
+
+    //---------------------------------------------------------------------------------------
+    //added for the toggleDisplay( )
+    //---------------------------------------------------------------------------------------
+    var inLineContainer = document.createElement('span');
+    inLineContainer.id = 'inLineContainer';
+
+    var toggleBtn = document.createElement('button');
+    var tglBtnText = document.createTextNode('Toggle Display');
+    toggleBtn.onclick = toggleDisplay;
+    toggleBtn.appendChild(tglBtnText);
+
+    var tglBtnContainer = document.createElement('div');
+    tglBtnContainer.appendChild(toggleBtn);
+    
+    rootDiv.appendChild(tglBtnContainer);
+    rootDiv.appendChild(inLineContainer);
+
+    //var rootContainer = document.getElementById('rootContainer');
+    //rootContainer.appendChild(tglBtnContainer);
+    //rootContainer.appendChild(inLineContainer);
+    //---------------------------------------------------------------------------------------
 }
 
-function renderReversedElements() {
+function renderReversedElements()
+{
     var reverseContainer = document.getElementById('reverseContainer');
     var reversedChicagoStartups = [];
 
-    if (reverseContainer) {
+    if (reverseContainer)
+    {
 
-        if (reverseContainer.hasChildNodes()) {
+        if (reverseContainer.hasChildNodes())
+        {
 
-            while (reverseContainer.hasChildNodes()) {
+            while (reverseContainer.hasChildNodes())
+            {
 
                 reversedChicagoStartups.push(reverseContainer.lastChild.innerHTML);
                 reverseContainer.removeChild(reverseContainer.lastChild);
@@ -141,7 +198,8 @@ function renderReversedElements() {
             );
         }
 
-        else {
+        else
+        {
             var revArr = chicagoStartupsReverse();
             //TODO:: REPLACE [chicagoStartups.reverse()] WITH A FUNCTION CALLED "chicagoStartupsReverse"
             //chicagoStartups.reverse().forEach(function (startup) {
@@ -156,18 +214,6 @@ function renderReversedElements() {
     }
 }
 
-function chicagoStartupsReverse() {
-    var reversedStartups = [];
-
-    //if you have the size of an array you cant start from the end of the array,
-    //and fill another array in the opposite direction
-    var n = chicagoStartups.length - 1;
-
-    while (n >= 0)
-    {
-        reversedStartups.push(chicagoStartups[n]);
-        n--;
-    }
     /*
         TODO: REVERSE THE CONTENTS OF THE ARRAY WITHOUT USING THE BUILT IN REVERSE METHOD
               RETURN THE REVERSED ARRAY
@@ -179,6 +225,20 @@ function chicagoStartupsReverse() {
                 DATA STRUTUCTURES REGARDLESS OF THE PROGRAMMING LANGUAGE
 
     */
+function chicagoStartupsReverse()
+{
+    var reversedStartups = [];
+
+    //if you have the size of an array you cant start from the end of the array,
+    //and fill another array in the opposite direction
+    var n = chicagoStartups.length - 1;
+
+    while (n >= 0)
+    {
+        reversedStartups.push(chicagoStartups[n]);
+        n--;
+    }
+
     return reversedStartups;
 }
 
@@ -189,19 +249,22 @@ function chicagoStartupsReverse() {
           DONT FORGET TO REMOVE LEADING AND TRAILING WHITESPACES AS WELL
 */
 
-function cleanAndCountCharacters() {
+function cleanAndCountCharacters()
+{
     console.log('CLEAN AND COUNT CHARACTERS');
     //use trim() to remove whitespace
-    //use regex str.replace(/[^a-zA-Z]/g, '') or str.replace(\W, '')
+    //use regex str.replace(/[^a-zA-Z]/g, '') or str.replace(\W, '')??
 
     var namesContainer = document.getElementById('namesContainer');
     var tempStr = '';
     var num = 0;
     if (namesContainer) {
-        if (namesContainer.hasChildNodes()) {
+        if (namesContainer.hasChildNodes())
+        {
             var childNode = namesContainer.firstChild;
 
-            while (childNode != null) {
+            while (childNode != null)
+            {
                 tempStr = childNode.innerHTML;
 
                 tempStr = tempStr.replace(/[^a-zA-Z]/g, '');
@@ -218,21 +281,20 @@ function cleanAndCountCharacters() {
 
 }
 
-function initReverse() {
-    //create an object that holds a button object, which calls the renderReversedElements object/func
+ //create an object that holds a button object, which calls the renderReversedElements object/func
 	/*
-				  Root Container
-				/				\
-		Reverse Cont    	Comp Names Cont
-			/
-	Rev button cont
-		/
-	Rev button
-		/
-	Text
-	
+				       Root Container
+				    /		  |		    \
+		Reverse Cont   Rev button cont      Comp Names Cont
+		                      |
+	                    Rev button
+		                      |
+	                        Text   	
 	
 	*/
+
+function initReverse()
+{
     var reverseContainer = document.createElement('div');
     reverseContainer.id = 'reverseContainer';
 
@@ -244,10 +306,13 @@ function initReverse() {
     reverseButtonContainer.appendChild(reverseBtn);
     document.getElementById('rootContainer').appendChild(reverseButtonContainer);
     document.getElementById('rootContainer').appendChild(reverseContainer);
+
+    
+
+    
 }
 
-function toggleDisplay() {
-    /*
+ /*
     TODO: REVIEW THE CODE IN THE PROVIDED REVERSE EXAMPLE, USE JAVASCRIPT TO ADD A CLICKABLE BUTTON
     CALLED "Toggle Display" ... WHEN THE USER CLICKS THE BUTTON, IT RENDERS THE DISPLAY OF THE COMPANY NAMES
     FROM VERTICAL, TO HORIZONTAL.
@@ -261,21 +326,72 @@ function toggleDisplay() {
 
         3.
     */
+
+
+function toggleDisplay()
+{
+   
+    //TODO: add flag.toggleDisplay = true/false to swtich between displays
+    if (flags.toggleDisplay)
+    {
+        var inLineContainer = document.getElementById('inLineContainer');
+
+        if (inLineContainer)
+        {
+            inLineContainer.innerHTML = chicagoStartups;
+        }
+
+        //test this
+        clearDiv();
+
+        flags.toggleDisplay = false;
+        console.log('toggle Display ( ) called, using inLine Container');
+    }
+
+    else
+    {
+        //fill the names with data again
+        var namesContainer = document.getElementById('namesContainer');
+
+        if (namesContainer)
+        {
+            if (namesContainer.hasChildNodes())
+            {
+                var childNode = namesContainer.firstChild;
+                var i = 0;
+                while (childNode != null)
+                {
+                    //testing
+                    childNode.innerHTML = chicagoStartups[i];
+
+                    i++;
+                    childNode = childNode.nextSibling;
+                }
+            }
+        }
+
+        clearSpan();
+        flags.toggleDisplay = true;
+        console.log('toggle Display ( ) called, using names Container');
+    }
 }
 
-function run() {
+function run()
+{
     initDocument();
     initReverse();
 }
 run();
 
 var flags = {
-    displayInstructions: true
+    displayInstructions: true,
+    toggleDisplay: true
 };
 
 //TODO INVOKE THIS ANONYMOUS FUNCTION TO DISPLAY HOMEWORK INSTRUCTIONS IN THE CONSOLE
 var directions = (function () {
-    if (flags.displayInstructions) {
+    if (flags.displayInstructions)
+    {
         console.log(`
                             ASSUMPTIONS: !!! NO JQUERY !!!
                                          TODO INDICATES THAT A SOLUTION IS REQUIRED

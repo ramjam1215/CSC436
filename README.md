@@ -1,6 +1,7 @@
 # CSC 436
+GITHUB URL: https://github.com/ramjam1215/CSC436/blob/master/index.html
 1) familiarization with git
-2) did some command prompt sutff with angular and the myfirstapp tutorial from lecture 1
+2) did some command prompt stuff with angular and the myfirstapp tutorial from lecture 1
 3) finished first assignment 
   a)learned about the different elements/containers in an html file
   b)learned about iterating through the tree structure(?) of html, parent and child nodes

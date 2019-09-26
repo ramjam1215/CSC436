@@ -13,3 +13,4 @@ GITHUB URL: https://github.com/ramjam1215/CSC436
    b) CleanAndCount( ) => iterate through child Nodes, used a regex to replace and trim each string, then counted it after
    c) toggleDisplay( ) => added another boolean variable in flags object for the display options: essentially it has two states dpending on    which state the file is in it will either fill containers with data or an empty string ''.
    d) displayInstructions => assigned the anonmyous function to a var/object and then called it
+   e) wish i worked more on the extra credit, but i did start playing with the CSS portion of the html file, which deaals with colors and styling.

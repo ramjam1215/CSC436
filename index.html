@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <h3>Javascript Basics</h3>
-    <button onclick="cleanAndCountCharacters()">
-        clean and count words
-    </button>
-    <body>
-    </body>
+<h3 class="gold">Javascript Basics</h3>
+
+<button onclick="cleanAndCountCharacters()">
+    clean and count words
+</button>
+
+<body>
+</body>
 </html>
 
 <style>
+
     #rootContainer {
         display: flex;
-
     }
+
     .root-container {
         position: relative;
+        background-color: green;
     }
 
-    .root-container .header {
-        position: relative;
-    }
+        .root-container .header {
+            position: relative;
+        }
 
-    .root-container .main {
-        position: relative;
-    }
+        .root-container .main {
+            position: relative;
+        }
 
-    .root-container .footer {
-        position: relative;
-    }
+        .root-container .footer {
+            position: relative;
+        }
 
     .startups-container {
         background-color: gray;
     }
 
     .red {
-        background-image: red;
+        color: red;
     }
 
     .blue {
-        background-image: blue;
+        color: blue;
     }
 
     .gold {
-        background-image: gold;
+        color: gold;
     }
 </style>
 
@@ -125,6 +129,7 @@ function initDocument()
 	*/
     var rootDiv = document.createElement('div');
     rootDiv.id = 'rootContainer';
+    rootDiv.classList.add("rootContainer");
 
     var companyNamesContainer = document.createElement('div');
     //added an id to the container for later access
@@ -136,6 +141,7 @@ function initDocument()
         //then stores them into another container 
         function (chicagoStartup, index) {
             var childDiv = document.createElement('div');
+            childDiv.classList.add("startups-container");
             var text = document.createTextNode(index.toString().concat(' .) ').concat(chicagoStartup));
             childDiv.appendChild(text);
             companyNamesContainer.appendChild(childDiv);
@@ -150,8 +156,10 @@ function initDocument()
     //---------------------------------------------------------------------------------------
     var inLineContainer = document.createElement('span');
     inLineContainer.id = 'inLineContainer';
+    inLineContainer.classList.add("blue");
 
     var toggleBtn = document.createElement('button');
+    //toggleBtn.classList.add("gold");
     var tglBtnText = document.createTextNode('Toggle Display');
     toggleBtn.onclick = toggleDisplay;
     toggleBtn.appendChild(tglBtnText);
@@ -297,6 +305,8 @@ function initReverse()
 {
     var reverseContainer = document.createElement('div');
     reverseContainer.id = 'reverseContainer';
+    reverseContainer.classList.add(colors[0].toString());
+
 
     var reverseBtn = document.createElement('button');
     var btnText = document.createTextNode('Reverse');
